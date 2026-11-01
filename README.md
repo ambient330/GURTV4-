@@ -1,4 +1,5 @@
 # GURT
+<img width="600" height="900" alt="image" src="https://github.com/user-attachments/assets/c130c9f1-7870-4959-8731-35313047c25b" />
 
 GURT is a vispy + Tk radar viewer/editor (with libgurt, an optional C backend for the
 despeckle / deglitch / gap-fill routines).
