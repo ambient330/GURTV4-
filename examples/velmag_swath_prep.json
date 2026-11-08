@@ -1,0 +1,14 @@
+{
+  "gurt_recipe": 1,
+  "input": {"glob": "*", "recursive": false},
+  "steps": [
+    {"op": "copy", "field": "VEL", "out": "VEL-edit"},
+    {"op": "despeckle", "field": "VEL-edit", "radius": 2, "min_good": 12, "max_pass": 3},
+    {"op": "deglitch", "field": "VEL-edit", "radius": 2, "thresh": 15.0, "delete_bad": true},
+    {"op": "smooth_velmag", "field": "VEL-edit", "length_m": 200, "out": "VMAG",
+     "note": "200 m boxcar of |V|, the field the wind swath is built from"},
+    {"op": "drop", "fields": ["VEL"],
+     "note": "Keep the output small: only the cleaned velocity and VMAG are written"}
+  ],
+  "output": {"format": "cfradial"}
+}

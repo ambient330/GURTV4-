@@ -1,0 +1,48 @@
+{
+  "gurt_recipe": 1,
+  "input": {
+    "glob": "*",
+    "recursive": false
+  },
+  "steps": [
+    {
+      "op": "gatefilter",
+      "field": "VE",
+      "by": "DBMHC",
+      "condition": "<",
+      "value": -100,
+      "note": "1a. Mask VE wherever the power field DBMHC (dBm, H co-pol) is below -100"
+    },
+    {
+      "op": "copy",
+      "field": "VE",
+      "out": "VE-edit",
+      "note": "1b. Copy the gate-filtered VE to VE-edit"
+    },
+    {
+      "op": "despeckle",
+      "field": "VE-edit",
+      "radius": 2,
+      "min_good": 12,
+      "max_pass": 3,
+      "note": "2. DREADER despeckle on VE-edit (in place)"
+    },
+    {
+      "op": "deglitch",
+      "field": "VE-edit",
+      "radius": 2,
+      "thresh": 15.0,
+      "delete_bad": true,
+      "gapfill": false,
+      "note": "3. Custom (DREADER) deglitch on VE-edit; Nyquist is read from the file"
+    }
+  ],
+  "output": {
+    "format": "dorade",
+    "compat": "dreader",
+    "fields": [
+      "VE",
+      "VE-edit"
+    ]
+  }
+}

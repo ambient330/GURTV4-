@@ -1,0 +1,15 @@
+{
+  "gurt_recipe": 1,
+  "input": {"glob": "*", "recursive": false},
+  "steps": [
+    {"op": "copy", "field": "VEL", "out": "VEL-edit",
+     "note": "Work on a copy so the original VEL is still in the output"},
+    {"op": "despeckle", "field": "VEL-edit", "radius": 2, "min_good": 10, "max_pass": 0,
+     "note": "Remove isolated gates first, otherwise the unfolder trusts them"},
+    {"op": "unfold", "field": "VEL-edit", "radius": 2, "thresh": 0.8, "reference": "previous_sweep",
+     "note": "Dealias. previous_sweep checks each ray against the sweep below it"},
+    {"op": "deglitch", "field": "VEL-edit", "radius": 2, "thresh": 15.0, "gapfill": true,
+     "note": "Fix what is left and fill the holes"}
+  ],
+  "output": {"format": "cfradial"}
+}
